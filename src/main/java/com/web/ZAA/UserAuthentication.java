@@ -6,6 +6,7 @@ import com.web.ZAA.Core.Database;
 import com.web.ZAA.Core.Load;
 import com.web.ZAA.Core.UserAccount;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
 import java.sql.Connection;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+@RestController
 public class UserAuthentication implements Authentication {
     private Connection system;
     private Account user;
@@ -39,8 +41,8 @@ public class UserAuthentication implements Authentication {
             if(user.getPassword().equals(password) && user.getActive()) {
                 System.out.println("Logged in as: " + username);
             } else {
-                user = null;
                 System.out.println("Error : can't log in (Either suspended or not found)");
+                user = null;
             }
         }
         return user;

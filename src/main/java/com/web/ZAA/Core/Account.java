@@ -22,9 +22,9 @@ public abstract class Account {
     public void setSystem() throws SQLException, ClassNotFoundException {
         system=Database.getInstance();
     }
-    public Connection getSystem(){
-        return system;
-    }
+//    public Connection getSystem(){
+//        return system;
+//    }
     public void setUsername(String username){
         this.username = username;
     }
