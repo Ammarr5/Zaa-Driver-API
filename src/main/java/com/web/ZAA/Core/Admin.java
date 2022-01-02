@@ -1,6 +1,4 @@
-package com.web.ZAA;
-
-import com.web.ZAA.Core.*;
+package com.web.ZAA.Core;
 
 import java.sql.Connection;
 import java.sql.SQLException;

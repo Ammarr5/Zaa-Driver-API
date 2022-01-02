@@ -1,7 +1,6 @@
 package com.web.ZAA;
 
 import com.web.ZAA.Core.*;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.websocket.server.PathParam;
