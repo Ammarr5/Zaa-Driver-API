@@ -1,5 +1,13 @@
-package com.web.ZAA.Core;
+package com.web.ZAA;
 
+import com.web.ZAA.Authentication;
+import com.web.ZAA.Core.Account;
+import com.web.ZAA.Core.Database;
+import com.web.ZAA.Core.Load;
+import com.web.ZAA.Core.UserAccount;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.websocket.server.PathParam;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,14 +27,13 @@ public class UserAuthentication implements Authentication {
         return system;
     }
 
+    @PostMapping("/user/login")
     @Override
-    public Account login() {
-        Scanner read=new Scanner(System.in);
+    public Account login(@PathParam("username") String username, @PathParam("password") String password) {
+        //Scanner read=new Scanner(System.in);
         System.out.println("User Login:");
         System.out.print("Username: ");
-        String username=read.nextLine();
         System.out.print("Password: ");
-        String password=read.nextLine();
         user = Load.findUser(username);
         if(user != null) {
             if(user.getPassword().equals(password) && user.getActive()) {

@@ -1,30 +1,35 @@
-package com.web.ZAA.Core;
+package com.web.ZAA;
 
+import com.web.ZAA.Core.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.websocket.server.PathParam;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+@RestController
 public class DriverAuthentication implements Authentication {
 
     private Connection system;
     private Account driver;
 
     public DriverAuthentication() throws SQLException, ClassNotFoundException {
-        system=Database.getInstance();
+        system= Database.getInstance();
     }
     public Connection getSystem(){
         return system;
     }
 
+    @PostMapping("/driver/login")
     @Override
-    public Account login() {
-        Scanner read=new Scanner(System.in);
+    public Account login(@PathParam("username") String username, @PathParam("password") String password) {
+        //Scanner read=new Scanner(System.in);
         System.out.println("Driver Login:");
         System.out.print("Username: ");
-        String username=read.nextLine();
         System.out.print("Password: ");
-        String password=read.nextLine();
         driver = Load.findActiveDriver(username);
         if(driver != null) {
             if(driver.getPassword().equals(password)) {

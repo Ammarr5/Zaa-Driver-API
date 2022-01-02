@@ -24,7 +24,7 @@ public class AdminAuthentication{
         system= Database.getInstance();
     }
 
-    @PostMapping("/login")
+    @PostMapping("/admin/login")
     public Admin login(@PathParam("username") String username, @PathParam("password") String password) {
 //        Scanner read=new Scanner(System.in);
         System.out.println("Admin Login (default 'admin', 'admin'):");
