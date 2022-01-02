@@ -24,23 +24,40 @@ public class UserAuthentication {
     public UserAuthentication() throws SQLException, ClassNotFoundException {
         system= Database.getInstance();
     }
-    public Connection getSystem(){
-        return system;
-    }
+//    public Connection getSystem(){
+//        return system;
+//    }
 
-    @PostMapping("/user/login")
-    public Account login(@PathParam("username") String username, @PathParam("password") String password) {
-        //Scanner read=new Scanner(System.in);
+//    @PostMapping("/user/login")
+//    public Account login(@PathParam("username") String username, @PathParam("password") String password) {
+//        //Scanner read=new Scanner(System.in);
+//        System.out.println("User Login:");
+//        System.out.print("Username: ");
+//        System.out.print("Password: ");
+//        user = Load.findUser(username);
+//        if(user != null) {
+//            if(user.getPassword().equals(password) && user.getActive()) {
+//                System.out.println("Logged in as: " + username);
+//            } else {
+//                System.out.println("Error : can't log in (Either suspended or not found)");
+//                user = null;
+//            }
+//        }
+//        return user;
+//    }
+
+    public Account login(String username, String password) {
+//        Scanner read=new Scanner(System.in);
         System.out.println("User Login:");
         System.out.print("Username: ");
         System.out.print("Password: ");
         user = Load.findUser(username);
         if(user != null) {
-            if(user.getPassword().equals(password) && user.getActive()) {
+            if(user.getPassword().equals(password)) {
                 System.out.println("Logged in as: " + username);
             } else {
-                System.out.println("Error : can't log in (Either suspended or not found)");
                 user = null;
+                System.out.println("Error : Password incorrect");
             }
         }
         return user;
