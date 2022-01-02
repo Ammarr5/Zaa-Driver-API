@@ -20,44 +20,29 @@ import java.util.List;
 @RestController
 public class DriverAccountController {
     DriverAccount driverAccount = null;
-    @PostMapping("/driver/addfav")
+    @PostMapping("/driver/addfavorite")
     public String addfav(@PathParam("username") String username, @PathParam("password") String password, @PathParam("favarea") String favarea) throws SQLException, ClassNotFoundException {
         DriverAuthentication driverAuthentication = new DriverAuthentication();
          driverAccount = (DriverAccount) driverAuthentication.login(username,password);
          Area area = new Area(favarea);
          driverAccount.addFavArea(area);
+        if (driverAccount == null)
+            return null;
          return favarea;
     }
 
-    @RequestMapping("/driver/notif")
+    @RequestMapping("/driver/notification")
     public List<Notification> returnNoti(@PathParam("username") String username, @PathParam("password") String password) throws SQLException, ClassNotFoundException, ParseException {
         DriverAccount driverAccount = null;
         DriverAuthentication driverAuthentication = new DriverAuthentication();
         driverAccount = (DriverAccount) driverAuthentication.login(username,password);
-        Date birthDate=null;
-        birthDate=new SimpleDateFormat("MM-dd").parse("28-10");
-        UserAccount userAccount = new UserAccount("adel", "123", "q34", "3ljl", birthDate);
-        Area area1 = new Area("Haram");
-        Area area2 = new Area("Dokki");
-        Ride ride = new Ride(area1, area2, userAccount, 2);
-        Date date = new Date();
-        Timestamp now = new Timestamp(date.getTime());
-        driverAccount.addNotification(new Notification("new ride from Haram", now, ride));
+        if (driverAccount == null)
+            return null;
         return driverAccount.getNotifications();
     }
     @PostMapping("driver/listratings")
     public List<String> listRatings(@PathParam("username") String username, @PathParam("password") String password) throws SQLException, ClassNotFoundException, ParseException {
         ArrayList<String> list = new ArrayList<>();
-        DriverAccount driverAccount = null;
-        DriverAuthentication driverAuthentication = new DriverAuthentication();
-        driverAccount = (DriverAccount) driverAuthentication.login(username,password);
-        Date birthDate=null;
-        birthDate=new SimpleDateFormat("MM-dd").parse("28-10");
-        UserAccount userAccount = new UserAccount("adelo", "123", "q34", "3ljl", birthDate);
-        Rating rating  = new Rating();
-        rating.setRate(5);
-        rating.setUsername("ehab");
-        driverAccount.insertAndUpdateAverageRating(rating);
         try {
             Statement stat = Database.getInstance().createStatement();
             String sql = Database.getDriverRatingSQL(driverAccount.getUsername());
@@ -68,6 +53,8 @@ public class DriverAccountController {
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
+        if (driverAccount == null)
+            return null;
         return list;
     }
 }
