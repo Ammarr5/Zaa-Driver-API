@@ -233,7 +233,7 @@ public class Database {
         while (rs.next()){
             System.out.println(rs.getString("username"));
             System.out.println(rs.getString("password"));
-            System.out.println(rs.getBoolean("is_driver"));
+            System.out.println(rs.getBoolean("is_active"));
         }
 
         stat.close();

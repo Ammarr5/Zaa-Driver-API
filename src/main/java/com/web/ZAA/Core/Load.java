@@ -57,7 +57,9 @@ public class Load {
             String sql = "SELECT * FROM users WHERE is_driver = 1 AND is_pending = 0";
             ResultSet rs = stat.executeQuery(sql);
             while (rs.next()){
-                drivers.add(new DriverAccount(rs.getString("username"), rs.getString("password"), rs.getString("mobile_number"), rs.getString("email"), rs.getString("natID"), rs.getString("drivingLicense")));
+                DriverAccount driver = new DriverAccount(rs.getString("username"), rs.getString("password"), rs.getString("mobile_number"), rs.getString("email"), rs.getString("natID"), rs.getString("drivingLicense"));
+                driver.setActive(true);
+                drivers.add(driver);
             }
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
