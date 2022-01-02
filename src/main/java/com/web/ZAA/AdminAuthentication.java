@@ -25,7 +25,7 @@ public class AdminAuthentication{
     }
 
     @PostMapping("/login")
-    public String login(@PathParam("username") String username, @PathParam("password") String password) {
+    public Admin login(@PathParam("username") String username, @PathParam("password") String password) {
 //        Scanner read=new Scanner(System.in);
         System.out.println("Admin Login (default 'admin', 'admin'):");
         System.out.print("Username: ");
@@ -44,7 +44,7 @@ public class AdminAuthentication{
         catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(AdminAuthentication.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return admin.getUsername();
+        return admin;
     }
 
 //    public void register() throws FileNotFoundException, IOException {

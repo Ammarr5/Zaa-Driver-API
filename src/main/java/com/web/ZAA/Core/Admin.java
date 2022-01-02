@@ -75,23 +75,7 @@ public class Admin {
         }
     }
 
-    public Connection getSystem(){
-        return system;
-    }
-
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Load.loadInit();
-        UserAccount user = Load.findUser("ammar");
-        DriverAccount driver = Load.findActiveDriver("adel");
-        Area source = Load.findArea("Haram");
-        Area destination = Load.findArea("dokki");
-        Ride ride = user.requestRide(source, destination, 1);
-        user.requestRide(destination, source, 1);
-        Admin admin = new Admin("admin", "admin");
-        Offer offer = driver.makeOffer(10, ride);
-        admin.showRides();
-        ride.showEvents();
-        user.acceptOffer(offer);
-        ride.showEvents();
-    }
+//    public Connection getSystem(){
+//        return system;
+//    }
 }
