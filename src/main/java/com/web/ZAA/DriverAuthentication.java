@@ -32,7 +32,7 @@ public class DriverAuthentication implements Authentication {
         System.out.print("Password: ");
         driver = Load.findActiveDriver(username);
         if(driver != null) {
-            if(driver.getPassword().equals(password)) {
+            if(driver.getPassword().equals(password) && driver.getActive()) {
                 System.out.println("Logged in as: " + username);
             } else {
                 System.out.println("Error: Cannot log in (Either suspended or pending)");
