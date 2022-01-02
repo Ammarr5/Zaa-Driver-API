@@ -69,6 +69,10 @@ public class Ride implements Subject, Notifiable{
         return user;
     }
 
+    public ArrayList<Offer> getOffers() {
+        return offers;
+    }
+
     @Override
     public void registerObserver(Observer observer) {
 

@@ -141,4 +141,13 @@ public class Load {
         }
         return null;
     }
+
+    public static Ride findRide(String username) {
+        for (Ride ride : rides) {
+            if (ride.getUser().getUsername().equals(username)) {
+                return ride;
+            }
+        }
+        return null;
+    }
 }
