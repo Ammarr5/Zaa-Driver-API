@@ -19,15 +19,14 @@ import java.util.List;
 
 @RestController
 public class DriverAccountController {
-    DriverAccount driverAccount = null;
     @PostMapping("/driver/addfavorite")
     public String addFavorite(@PathParam("username") String username, @PathParam("password") String password, @PathParam("favarea") String favarea) throws SQLException, ClassNotFoundException {
         DriverAuthentication driverAuthentication = new DriverAuthentication();
-         driverAccount = (DriverAccount) driverAuthentication.login(username,password);
-         Area area = new Area(favarea);
-         driverAccount.addFavArea(area);
+         DriverAccount driverAccount = (DriverAccount) driverAuthentication.login(username,password);
         if (driverAccount == null)
             return null;
+         Area area = new Area(favarea);
+         driverAccount.addFavArea(area);
          return favarea;
     }
 
@@ -43,6 +42,10 @@ public class DriverAccountController {
     @PostMapping("driver/listratings")
     public List<String> listRatings(@PathParam("username") String username, @PathParam("password") String password) throws SQLException, ClassNotFoundException, ParseException {
         ArrayList<String> list = new ArrayList<>();
+        DriverAuthentication driverAuthentication = new DriverAuthentication();
+        DriverAccount driverAccount = (DriverAccount) driverAuthentication.login(username,password);
+        if (driverAccount == null)
+            return null;
         try {
             Statement stat = Database.getInstance().createStatement();
             String sql = Database.getDriverRatingSQL(driverAccount.getUsername());
@@ -53,8 +56,6 @@ public class DriverAccountController {
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
-        if (driverAccount == null)
-            return null;
         return list;
     }
 }

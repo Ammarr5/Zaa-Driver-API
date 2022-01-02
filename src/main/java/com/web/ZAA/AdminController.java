@@ -37,7 +37,10 @@ public class AdminController {
     public Account suspendPerson(@PathParam("adminUsername") String adminUsername, @PathParam("adminPassword") String adminPassword, @PathParam("username") String username) throws SQLException, ClassNotFoundException {
         Admin admin = (Admin) (new AdminAuthentication()).login(adminUsername, adminPassword);
         Account account=null;
-        if(Load.findActiveDriver(username) != null){
+        if (admin == null)
+            return null;
+
+        if(Load.findActiveDriver(username) != null) {
             account=Load.findActiveDriver(username);
             account.setActive(false);
         }
@@ -45,10 +48,7 @@ public class AdminController {
             account=Load.findUser(username);
             account.setActive(false);
         }
-        if(admin!=null) {
-            return account;
-        }
-        return null;
+        return account;
     }
 
     @PostMapping("/admin/addAreaDiscount")
