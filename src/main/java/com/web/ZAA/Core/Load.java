@@ -17,6 +17,7 @@ public class Load {
         loadPendingDrivers();
         loadAreas();
         loadUsers();
+
         //Set drivers fav areas
         for(DriverAccount driver : drivers) {
             try {
@@ -41,8 +42,6 @@ public class Load {
                 ResultSet rs = stat.executeQuery(sql);
                 ArrayList<Observer> observers = new ArrayList<>();
                 while (rs.next()) {
-                    System.out.println(rs.getString("username"));
-                    System.out.println(findActiveDriver(rs.getString("username")));
                     observers.add(findActiveDriver(rs.getString("username")));
                 }
                 area.setObservers(observers);
