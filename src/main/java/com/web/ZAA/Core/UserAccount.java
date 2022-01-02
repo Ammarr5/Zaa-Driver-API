@@ -12,7 +12,15 @@ public class UserAccount extends Account implements Observer {
     private int discount;
     private Date birthDate;
 
-    public UserAccount(String username,String password,String mobilePhone,String email,Date birthDate) throws SQLException, ClassNotFoundException {
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public UserAccount(String username, String password, String mobilePhone, String email, Date birthDate) throws SQLException, ClassNotFoundException {
         super();
         setUsername(username);
         setPassword(password);

@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 @RestController
-public class DriverAuthentication implements Authentication {
+public class DriverAuthentication {
 
     private Connection system;
     private Account driver;
@@ -19,12 +19,9 @@ public class DriverAuthentication implements Authentication {
     public DriverAuthentication() throws SQLException, ClassNotFoundException {
         system= Database.getInstance();
     }
-    public Connection getSystem(){
-        return system;
-    }
+
 
     @PostMapping("/driver/login")
-    @Override
     public Account login(@PathParam("username") String username, @PathParam("password") String password) {
         //Scanner read=new Scanner(System.in);
         System.out.println("Driver Login:");
@@ -41,32 +38,27 @@ public class DriverAuthentication implements Authentication {
         }
         return driver;
     }
+    @PostMapping("/driver/register")
+    public DriverAccount register(@PathParam("username") String username,
+                            @PathParam("password") String password,
+                            @PathParam("mobilephone") String mobilephone,
+                            @PathParam("email") String email,
+                            @PathParam("nationalid") String nationalid,
+                            @PathParam("drivinglicense") String drivinglicense) {
 
-    @Override
-    public void register() {
-        Scanner read=new Scanner(System.in);
-        System.out.println("Driver Register:");
-        System.out.print("Username: ");
-        String username=read.nextLine();
-        System.out.print("Password: ");
-        String password=read.nextLine();
-        System.out.print("Mobile Phone: ");
-        String mobilePhone=read.nextLine();
-        System.out.print("Email: ");
-        String email=read.nextLine();
-        System.out.print("National ID: ");
-        String nationalID=read.nextLine();
-        System.out.print("Driving License: ");
-        String drivingLicense=read.nextLine();
+        DriverAccount driverAccount = null;
+
         try {
             Statement stat = system.createStatement();
-            String sql = Database.getAddDriverSQL(username,password,mobilePhone,email,nationalID,drivingLicense);
+            String sql = Database.getAddDriverSQL(username,password,mobilephone,email,nationalid,drivinglicense);
             stat.executeUpdate(sql);
-            Load.pendingDrivers.add(new DriverAccount(username, password, mobilePhone, email, nationalID, drivingLicense));
+            driverAccount = new DriverAccount(username, password, mobilephone, email, nationalid, drivinglicense);
+            Load.pendingDrivers.add(driverAccount);
             System.out.println("Driver account created successfully");
         } catch (SQLException | ClassNotFoundException throwables) {
             System.out.println("Error: User already exists");
         }
+        return driverAccount;
     }
 
 //    //Helper methods

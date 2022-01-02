@@ -1,11 +1,11 @@
 package com.web.ZAA;
 
-import com.web.ZAA.Authentication;
 import com.web.ZAA.Core.Account;
 import com.web.ZAA.Core.Database;
 import com.web.ZAA.Core.Load;
 import com.web.ZAA.Core.UserAccount;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
@@ -15,10 +15,9 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
 
 @RestController
-public class UserAuthentication implements Authentication {
+public class UserAuthentication {
     private Connection system;
     private Account user;
 
@@ -30,7 +29,6 @@ public class UserAuthentication implements Authentication {
     }
 
     @PostMapping("/user/login")
-    @Override
     public Account login(@PathParam("username") String username, @PathParam("password") String password) {
         //Scanner read=new Scanner(System.in);
         System.out.println("User Login:");
@@ -48,34 +46,27 @@ public class UserAuthentication implements Authentication {
         return user;
     }
 
-    @Override
-    public void register() {
-        Scanner regRead=new Scanner(System.in);
-        System.out.println("User Register:");
-        System.out.print("Username: ");
-        String username=regRead.nextLine();
-        System.out.print("Password: ");
-        String password=regRead.nextLine();
-        System.out.print("Mobile Phone: ");
-        String mobilePhone=regRead.nextLine();
-        System.out.print("Email: ");
-        String email=regRead.nextLine();
-        System.out.print("Birthday (mm-dd): ");
-        String birthday=regRead.nextLine();
+    @PostMapping("/user/register")
+
+    public Account register(@PathParam("username") String username, @PathParam("password") String password, @PathParam("mobilephone") String mobilephone, @PathParam("email") String email, @PathParam("birthdate") String birthdate)
+    {
+
         Date birthDate=null;
+        UserAccount userAccount = null;
         try {
-            birthDate=new SimpleDateFormat("MM-dd").parse(birthday);
+            birthDate=new SimpleDateFormat("MM-dd").parse(birthdate);
         } catch (ParseException e) {
             System.out.println("Error: wrong birthday format!");
         }
         try {
             Statement stat = system.createStatement();
-            String sql = Database.getAddUserSQL(username,password,mobilePhone,email,birthDate);
+            String sql = Database.getAddUserSQL(username,password,mobilephone,email,birthDate);
             stat.executeUpdate(sql);
-            Load.users.add(new UserAccount(username, password, mobilePhone, email,birthDate));
-            System.out.println("User account created successfully");
+            userAccount = new UserAccount(username, password, mobilephone, email,birthDate);
+            Load.users.add(userAccount);
         } catch (SQLException | ClassNotFoundException throwables) {
             System.out.println("Username already registered");
         }
+        return userAccount;
     }
 }

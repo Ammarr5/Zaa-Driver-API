@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 @RestController
 public class ZAA {
-    private static Authentication user,driver;
+
     private static AdminAuthentication admin;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
