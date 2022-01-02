@@ -21,7 +21,7 @@ import java.util.List;
 public class DriverAccountController {
     DriverAccount driverAccount = null;
     @PostMapping("/driver/addfavorite")
-    public String addfav(@PathParam("username") String username, @PathParam("password") String password, @PathParam("favarea") String favarea) throws SQLException, ClassNotFoundException {
+    public String addFavorite(@PathParam("username") String username, @PathParam("password") String password, @PathParam("favarea") String favarea) throws SQLException, ClassNotFoundException {
         DriverAuthentication driverAuthentication = new DriverAuthentication();
          driverAccount = (DriverAccount) driverAuthentication.login(username,password);
          Area area = new Area(favarea);
@@ -32,7 +32,7 @@ public class DriverAccountController {
     }
 
     @RequestMapping("/driver/notification")
-    public List<Notification> returnNoti(@PathParam("username") String username, @PathParam("password") String password) throws SQLException, ClassNotFoundException, ParseException {
+    public List<Notification> returnNotifications(@PathParam("username") String username, @PathParam("password") String password) throws SQLException, ClassNotFoundException, ParseException {
         DriverAccount driverAccount = null;
         DriverAuthentication driverAuthentication = new DriverAuthentication();
         driverAccount = (DriverAccount) driverAuthentication.login(username,password);
