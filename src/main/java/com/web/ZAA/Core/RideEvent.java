@@ -14,7 +14,7 @@ public class RideEvent {
     Timestamp time;
     HashMap<String, String> eventProps;
 
-    public RideEvent(String capName, long price) {
+    public RideEvent(String capName, double price) {
         name = "New price offer";
         initEvent();
         eventProps.put("Price", ""+price);

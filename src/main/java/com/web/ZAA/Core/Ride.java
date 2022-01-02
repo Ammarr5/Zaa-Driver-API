@@ -30,6 +30,7 @@ public class Ride implements Subject, Notifiable{
 
     public void addOffer(Offer offer) {
         offers.add(offer);
+        addEvent(new RideEvent(offer.getDriver().getUsername(), offer.getUserPrice()));
         notifyObservers(offer);
     }
 
