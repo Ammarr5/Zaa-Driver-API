@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-
 public class UserAccount extends Account implements Observer {
     private boolean firstRide;
     private int discount;
@@ -85,15 +84,14 @@ public class UserAccount extends Account implements Observer {
         notifications.add(new Notification(offer.toString(), now, o));
     }
 
-    public void rateDriver(DriverAccount driver) // this function in the UserAccount class
+    public void rateDriver(DriverAccount driver, int rate) // this function in the UserAccount class
     {
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("Enter your rating in numbers: ");
+//        Scanner keyboard = new Scanner(System.in);
+//        System.out.print("Enter your rating in numbers: ");
         Rating rating = new Rating();
-        int rate = keyboard.nextInt();
+//        int rate = keyboard.nextInt();
         rating.setRate(rate);
         rating.setUsername(this.getUsername());
         driver.insertAndUpdateAverageRating(rating);
-
     }
 }
